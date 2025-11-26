@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WorkflowBackend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c2c54fdac7dae2dfe907d5178e022826db12d45")]
 [assembly: System.Reflection.AssemblyProductAttribute("WorkflowBackend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WorkflowBackend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

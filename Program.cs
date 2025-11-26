@@ -11,6 +11,18 @@ using SupabaseClient = Supabase.Client;
 using GoTrueClient = Supabase.Gotrue.Client;
 
 var builder = WebApplication.CreateBuilder(args);
+// =======================
+// CORS
+// =======================
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowAnyOrigin(); // for development only
+    });
+});
 
 // =======================
 // Swagger / OpenAPI
@@ -68,6 +80,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
 app.UseHttpsRedirection();
 
 // =======================
@@ -225,24 +238,35 @@ app.MapPut("/activity/status", async (
 })
 .WithTags("Activity");
 
-app.MapPost("/file/upload", async (IFormFile file, Guid activityId, FileRepository fileRepo) =>
+app.MapPost("/file/upload", async ([FromForm] FileUploadRequest req, FileRepository fileRepo) =>
 {
-    if (file == null)
+    if (req.File == null)
         return Results.BadRequest("No file uploaded");
 
-    if (activityId == Guid.Empty)
+    if (req.ActivityId == Guid.Empty)
         return Results.BadRequest("activityId is required");
 
-    // Upload file and attach to activity
-    var fileUrl = await fileRepo.UploadAndAttachToActivity(file, "papers", activityId);
+    var fileUrl = await fileRepo.UploadAndAttachToActivity(
+        req.File,
+        "papers",
+        req.ActivityId
+    );
 
-    return Results.Ok(new
-    {
-        fileUrl
-    });
+    return Results.Ok(new { fileUrl });
 })
 .DisableAntiforgery()
-.Accepts<IFormFile>("multipart/form-data")
+.Accepts<FileUploadRequest>("multipart/form-data")
+.WithTags("Files");
+
+app.MapGet("/file/download", async (Guid activityId, FileRepository fileRepo) =>
+{
+    var signedUrl = await fileRepo.GetSignedUrlByActivity(activityId, 60); // await here
+
+    if (string.IsNullOrEmpty(signedUrl))
+        return Results.NotFound("No file found for this activity.");
+
+    return Results.Ok(new { signedUrl });
+})
 .WithTags("Files");
 
 app.Run();

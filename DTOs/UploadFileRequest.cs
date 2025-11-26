@@ -1,8 +1,9 @@
 namespace WorkflowBackend.DTOs
 {
-    public class UploadFileRequest
-    {
-        public IFormFile File { get; set; } = default!;
-        public string Folder { get; set; } = "uploads"; // optional
-    }
+    public class FileUploadRequest
+{
+    public IFormFile File { get; set; } = default!;
+    public Guid ActivityId { get; set; }
+}
+
 }
