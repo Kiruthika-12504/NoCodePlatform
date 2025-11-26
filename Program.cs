@@ -13,7 +13,7 @@ var host = Host.CreateDefaultBuilder(args)
         {
             return new Client(
                 "https://ovlwgaldrumvviexdmjd.supabase.co",
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92bHdnYWxkcnVtdnZpZXhkbWpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM2MTI3MjMsImV4cCI6MjA3OTE4ODcyM30.qF-jvnr9J2nGH-zF2xr6fA4ZYt5kLG8ZhdAoczoLIok",
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im92bHdnYWxkcnVtdnZpZXhkbWpkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MzYxMjcyMywiZXhwIjoyMDc5MTg4NzIzfQ.5xmgI4a7xUBOMvh4QIkmmTpoaeoXXZBME6v3QwEaq4Q",
                 new SupabaseOptions
                 {
                     AutoConnectRealtime = false
